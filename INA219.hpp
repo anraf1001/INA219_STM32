@@ -73,17 +73,16 @@ enum class InaMode : uint8_t {
 
 class DFRobot_INA219 {
 public:
-	DFRobot_INA219(I2C_HandleTypeDef* hi2c, uint8_t addr)
-		: hi2c_{hi2c}, addr_{addr} {}
+	DFRobot_INA219(I2C_HandleTypeDef* hi2c, uint8_t addr);
 
-
-	bool init();
 	void reset();
 
 	float getBusVoltage_V();
 	float getShuntVoltage_mV();
 	float getCurrent_mA();
 	float getPower_mW();
+
+	Ina219_Status getlastOperateStatus() { return lastOperateStatus_; }
 
 	void setBRNG(Ina219BusVolRange volRange);
 	void setPGA(Ina219PGABits bits);

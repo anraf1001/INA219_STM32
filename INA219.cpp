@@ -2,8 +2,10 @@
 
 #include "main.h"
 
-bool DFRobot_INA219::init() {
+DFRobot_INA219::DFRobot_INA219(I2C_HandleTypeDef* hi2c, uint8_t addr)
+	: hi2c_{hi2c}, addr_{addr} {
 	lastOperateStatus_ = Ina219_Status::InitError;
+
 	if (HAL_OK == HAL_I2C_IsDeviceReady(hi2c_, addr_ << 1, 3, 5)) {
 		setBRNG(Ina219BusVolRange::VolRange_32V);
 		setPGA(Ina219PGABits::PGABits_8);
@@ -13,10 +15,7 @@ bool DFRobot_INA219::init() {
 		calValue_ = 4096;
 		writeReg(INA219_REG_CALIBRATION, calValue_);
 		lastOperateStatus_ = Ina219_Status::OK;
-		return true;
 	}
-
-	return false;
 }
 
 void DFRobot_INA219::linearCalibrate(float ina219Reading_mA, float extMeterReading_mA) {
