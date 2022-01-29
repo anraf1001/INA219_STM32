@@ -7,7 +7,7 @@ constexpr uint8_t INA219_I2C_ADDRESS2 = 0x41;
 constexpr uint8_t INA219_I2C_ADDRESS3 = 0x44;
 constexpr uint8_t INA219_I2C_ADDRESS4 = 0x45;
 
-// Register Configuration
+// Configuration Register
 constexpr uint8_t INA219_REG_CONFIG = 0x00;
 constexpr uint16_t INA219_CONFIG_RESET = 0x8000;
 constexpr uint16_t INA219_CONFIG_BUSVOLTAGERANGE_MASK = 0x2000;
@@ -20,7 +20,7 @@ constexpr uint8_t INA219_REG_BUSVOLTAGE = 0x02;
 constexpr uint8_t INA219_REG_POWER = 0x03;
 // Current Register
 constexpr uint8_t INA219_REG_CURRENT = 0x04;
-// Register Calibration
+// Calibration Register
 constexpr uint8_t INA219_REG_CALIBRATION = 0x05;
 
 enum class Ina219_Status : uint8_t{

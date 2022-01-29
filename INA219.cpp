@@ -24,11 +24,11 @@ void DFRobot_INA219::linearCalibrate(float ina219Reading_mA, float extMeterReadi
 }
 
 float DFRobot_INA219::getBusVoltage_V() {
-    return (float) (readReg(INA219_REG_BUSVOLTAGE) >> 1) * 0.001;
+    return (readReg(INA219_REG_BUSVOLTAGE) >> 1) * 0.001f;
 }
 
 float DFRobot_INA219::getShuntVoltage_mV() {
-    return (float) readReg(INA219_REG_SHUNTVOLTAGE) * 0.01;
+    return readReg(INA219_REG_SHUNTVOLTAGE) * 0.01f;
 }
 
 float DFRobot_INA219::getCurrent_mA() {
@@ -36,7 +36,7 @@ float DFRobot_INA219::getCurrent_mA() {
 }
 
 float DFRobot_INA219::getPower_mW() {
-	return (float) readReg(INA219_REG_POWER) * 20;
+	return readReg(INA219_REG_POWER) * 20.f;
 }
 
 void DFRobot_INA219::reset() {
@@ -64,14 +64,14 @@ void DFRobot_INA219::setPGA(Ina219PGABits bits) {
 void DFRobot_INA219::setBADC(Ina219AdcBits bits, Ina219AdcSample sample) {
 	uint16_t value;
 
-	if (bits < Ina219AdcBits::AdcBits_12) {
+	if (bits != Ina219AdcBits::AdcBits_12) {
 		value = static_cast<uint16_t>(bits);
 	} else {
 		value = 0x08 | static_cast<uint16_t>(sample);
 	}
 
 	uint16_t conf = readReg(INA219_REG_CONFIG);
-	conf &= ~((uint16_t) 0x0f << 7);
+	conf &= ~((uint16_t) 0x0F << 7);
 	conf |= static_cast<uint16_t>(value) << 7;
 	writeReg(INA219_REG_CONFIG, conf);
 }
@@ -81,14 +81,14 @@ void DFRobot_INA219::setBADC(Ina219AdcBits bits, Ina219AdcSample sample) {
 void DFRobot_INA219::setSADC(Ina219AdcBits bits, Ina219AdcSample sample) {
 	uint16_t value;
 
-	if (bits < Ina219AdcBits::AdcBits_12) {
+	if (bits != Ina219AdcBits::AdcBits_12) {
 		value = static_cast<uint16_t>(bits);
 	} else {
 		value = 0x08 | static_cast<uint16_t>(sample);
 	}
 
 	uint16_t conf = readReg(INA219_REG_CONFIG);
-	conf &= ~((uint16_t) 0x0f << 3);
+	conf &= ~((uint16_t) 0x0F << 3);
 	conf |= static_cast<uint16_t>(value) << 3;
 	writeReg(INA219_REG_CONFIG, conf);
 }
